@@ -16,6 +16,7 @@ jobs:
       - uses: step-security/harden-runner@rc
         with:
           egress-policy: block
+          disable-telemetry: true
           allowed-endpoints: 
             dl-cdn.alpinelinux.org:443
             github.com:443
