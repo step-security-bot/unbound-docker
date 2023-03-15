@@ -12,12 +12,15 @@ env:
   VERSION: "2.1.12"
   REVISION: "17"
   
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     
-      - uses: step-security/harden-runner@v2
+      - uses: step-security/harden-runner@1f99358870fe1c846a3ccba386cc2b2246836776 # v2.2.1
         with:
           egress-policy: block
           disable-telemetry: true
@@ -35,24 +38,24 @@ jobs:
             pipelines.actions.githubusercontent.com:443
         
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
           
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@e81a89b1732b9c48d79cd809d8d81d79c4647a18 # v2.1.0
       
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@4b4e9c3e2d4531116a6f8ba8e71fc6e2cb6e6c8c # v2.5.0
      
       - name: Login to Dockerhub
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # v2.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
   
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671 # v4.0.0
         with:
           platforms: linux/386,linux/arm/v6,linux/arm/v7,linux/arm64,linux/amd64
           builder: ${{ steps.buildx.outputs.name }}

@@ -5,7 +5,7 @@ ARG IMAGE_BUILD_DATE="2023-02-08" \
   UNBOUND_VERSION="1.17.1" \
   IMAGE_REVISION="2"
    
-FROM madnuttah/unbound:libevent-buildenv-latest AS unbound
+FROM madnuttah/unbound:libevent-buildenv-latest@sha256:ffc97bd8705663f21db16ced047614968cd45dd2bc85bad2bf686ef0ba1584d0 AS unbound
 LABEL maintainer="madnuttah"
 
 ARG UNBOUND_VERSION
@@ -129,7 +129,7 @@ RUN set -xe; \
     strip --strip-all /usr/local/unbound/unbound.d/sbin/unbound-control && \
     strip --strip-all /usr/local/unbound/unbound.d/sbin/unbound-host
 	
-FROM alpine:latest
+FROM alpine:latest@sha256:ff6bdca1701f3a8a67e328815ff2346b0e4067d32ec36b7992c1fdc001dc8517
 LABEL maintainer="madnuttah"
 
 ARG UNBOUND_VERSION \
